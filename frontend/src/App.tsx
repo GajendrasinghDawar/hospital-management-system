@@ -16,7 +16,7 @@ function App() {
 
   return (
     <UserContextProvider>
-      {!user && currentScreen === "login_screen" ? (
+      {currentScreen === "login_screen" ? (
         <LoginScreen setCurrentScreen={setCurrentScreen} />
       ) : (
         <div>
