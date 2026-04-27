@@ -30,25 +30,25 @@ export function LoginScreen({
   };
 
   return (
-    <div className="flex flex-col items-center justify-center gap-4">
-      <h3>Login page</h3>
+    <div className="flex flex-col items-center justify-center gap-4 py-7">
+      <h3 className="text-2xl">Login page</h3>
       <section className="">
         <form action={handleAction} className="flex flex-col gap-4">
           <input
-            className="border-2 rounded border-gray-400"
+            className="border rounded border-gray-400 p-2"
             type="email"
             placeholder="email"
             name="email"
           />
           <input
-            className="border-2 rounded border-gray-400"
+            className="border rounded border-gray-400 p-2"
             type="password"
             placeholder="password"
             name="password"
           />
           <button
             type="submit"
-            className="bg-gray-500 text-white px-4 py-2 rounded"
+            className="bg-rose-500 text-white px-4 py-2 rounded"
           >
             Login
           </button>

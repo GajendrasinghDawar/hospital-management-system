@@ -56,7 +56,7 @@ export function CreateAvailablity() {
         <button
           type="submit"
           disabled={status === "loading"}
-          className="rounded bg-gray-700 px-4 py-2 text-white disabled:cursor-not-allowed disabled:opacity-60"
+          className="rounded bg-rose-600 px-4 py-2 text-white disabled:cursor-not-allowed disabled:opacity-60"
         >
           {status === "loading" ? "Creating..." : "Create"}
         </button>

@@ -13,7 +13,7 @@ export function AvailableSlots() {
   }, []);
   return (
     <div>
-      <h2>Available Slots</h2>
+      <h2 className="text-center mb-2 ">Available Slots</h2>
       <section className="flex flex-col items-center justify-center gap-4">
         {slots.map(
           (slot: {

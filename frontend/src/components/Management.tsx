@@ -8,11 +8,12 @@ export function Management() {
   const user = use(UserContext);
 
   return (
-    <section className="flex flex-col items-center justify-center gap-4">
+    <section className="flex flex-col items-center justify-center gap-4 py-6">
       {user?.type === "client" && (
         <>
           <h2>Welcome {user.email}</h2>
           <h3>Book an appointment</h3>
+
           <AvailableSlots />
           <ClientAppointments />
           <div></div>
