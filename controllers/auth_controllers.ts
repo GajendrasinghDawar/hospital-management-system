@@ -8,7 +8,7 @@ async function signInToken(user: any) {
     { id: user._id, email: user.email, type: user.type },
     process.env.JWT_SECRET_KEY!,
     {
-      expiresIn: "1h",
+      expiresIn: "2h",
     },
   );
 }

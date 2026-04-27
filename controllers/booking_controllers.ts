@@ -92,5 +92,45 @@ export async function getAppointmentById(req: authRequest, res: Response) {
       message: "appointment not found",
     });
   }
+
   res.status(200).json({ appointment });
+}
+
+export async function createAvailability(req: authRequest, res: Response) {
+  const { date, time } = req.body;
+  const user = req.user;
+  if (!user || user.type !== "doctor") {
+    return res.status(401).json({
+      message: "unauthorized !",
+    });
+  }
+  const db = await connectToDatabse();
+
+  const availability = {
+    date,
+    time,
+    doctorId: user.id,
+  };
+
+  const existingAvailability = await db.collection("availabilities").findOne({
+    date,
+    time,
+    doctorId: user.id,
+  });
+
+  if (existingAvailability) {
+    return res.status(400).json({
+      message: "availability already exist for this date and time",
+    });
+  }
+
+  const data = await db.collection("availabilities").insertOne(availability);
+  if (!data) {
+    return res.status(500).json({
+      message: "Failed to create availability",
+    });
+  }
+  return res.status(200).json({
+    message: "availability created successfully",
+  });
 }
