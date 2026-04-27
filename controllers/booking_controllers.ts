@@ -134,3 +134,39 @@ export async function createAvailability(req: authRequest, res: Response) {
     message: "availability created successfully",
   });
 }
+
+export async function getAvailabilities(req: authRequest, res: Response) {
+  const user = req.user;
+  const db = await connectToDatabse();
+  if (!user || user.type !== "client") {
+    return res.status(401).json({
+      message: "unauthorized !",
+    });
+  }
+
+  const availabilities = await db
+    .collection("availabilities")
+    .aggregate([
+      {
+        $lookup: {
+          from: "users",
+          localField: "doctorId",
+          foreignField: "_id",
+          as: "doctor",
+        },
+      },
+      { $unwind: "$doctor" },
+      { $match: { "doctor.type": "doctor" } },
+      {
+        $project: {
+          _id: 1,
+          doctorId: 1,
+          date: 1,
+          slots: 1,
+          doctorName: "$doctor.name",
+        },
+      },
+    ])
+    .toArray();
+  res.status(200).json({ availabilities });
+}

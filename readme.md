@@ -1,6 +1,6 @@
 # Hospital Management System API
 
-Its a simple hospital management system API built with Node.js, Express, and MongoDB. It provides endpoints for user authentication, appointment management.
+Its a simple hospital management system API built with Node.js, Express, MongoDB and ReactJs. It provides endpoints for user authentication, appointment management.
 
 avaiable endpoints:
 
