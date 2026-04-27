@@ -95,3 +95,34 @@ export const getAppointments = async () => {
     appointments: [],
   };
 };
+
+export const createAvailableSlot = async ({
+  date,
+  time,
+}: {
+  date: string;
+  time: string;
+}) => {
+  const res = await fetch(`${BACKEND_URL}/booking/availability`, {
+    method: "POST",
+    headers: {
+      "Content-Type": "application/json",
+      Authorization: `Bearer ${localStorage.getItem("token")}`,
+    },
+    body: JSON.stringify({ date, time }),
+  });
+
+  if (res.status === 200) {
+    return {
+      success: true,
+      message: "availability created successfully",
+    };
+  }
+
+  const data = await res.json().catch(() => null);
+
+  return {
+    success: false,
+    message: data?.message || "failed to create availability",
+  };
+};

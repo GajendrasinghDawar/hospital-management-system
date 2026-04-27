@@ -1,5 +1,5 @@
 import { useEffect } from "react";
-import { getUser, loginUser } from "./utils";
+import { getUser, loginUser } from "../utils";
 
 export function LoginScreen({
   setCurrentScreen,
@@ -9,6 +9,7 @@ export function LoginScreen({
   useEffect(() => {
     getUser();
   }, []);
+
   const handleAction = async (formData: FormData) => {
     console.log(
       "form submitted",

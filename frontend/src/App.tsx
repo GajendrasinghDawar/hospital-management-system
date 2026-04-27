@@ -1,8 +1,7 @@
 import { useEffect, useState } from "react";
-import "./App.css";
-import { LoginScreen } from "./LoginScreen";
-import { Management } from "./Management";
-import { UserContext, UserContextProvider } from "./userContext";
+import { LoginScreen } from "./components/LoginScreen";
+import { Management } from "./components/Management";
+import { UserContext, UserContextProvider } from "./providers/UserContext";
 import { use } from "react";
 
 function App() {
@@ -17,11 +16,10 @@ function App() {
 
   return (
     <UserContextProvider>
-      {currentScreen === "login_screen" ? (
+      {!user && currentScreen === "login_screen" ? (
         <LoginScreen setCurrentScreen={setCurrentScreen} />
       ) : (
         <div>
-          <h1>Hospital Management system</h1>
           <Management />
         </div>
       )}
