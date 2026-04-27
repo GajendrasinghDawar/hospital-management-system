@@ -4,6 +4,7 @@ import {
   createAppointment,
   getAppointmentById,
   getAppointments,
+  createAvailability,
 } from "../controllers/booking_controllers.ts";
 
 const router = Router();
@@ -11,5 +12,6 @@ const router = Router();
 router.post("/appointments", authMiddleware, createAppointment);
 router.get("/appointments", authMiddleware, getAppointments);
 router.get("/appointments/:id", authMiddleware, getAppointmentById);
+router.post("/availability", authMiddleware, createAvailability);
 
 export default router;
