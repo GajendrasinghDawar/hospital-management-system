@@ -1,35 +1,32 @@
 import { useEffect, useState } from "react";
 import "./App.css";
 import { LoginScreen } from "./LoginScreen";
-import { getUser } from "./utils";
 import { Management } from "./Management";
+import { UserContext, UserContextProvider } from "./userContext";
+import { use } from "react";
 
 function App() {
   const [currentScreen, setCurrentScreen] = useState("login_screen");
-
+  const user = use(UserContext);
   useEffect(() => {
-    const user = async () => {
-      const data = await getUser();
-      return data;
-    };
-    user().then((result) => {
-      if (result.success) {
-        setCurrentScreen("home_screen");
-      }
-    });
-  }, []);
+    if (user) {
+      // eslint-disable-next-line react-hooks/set-state-in-effect
+      setCurrentScreen("home_screen");
+    }
+  }, [user]);
 
-  switch (currentScreen) {
-    case "login_screen":
-      return <LoginScreen setCurrentScreen={setCurrentScreen} />;
-    case "home_screen":
-      return (
+  return (
+    <UserContextProvider>
+      {currentScreen === "login_screen" ? (
+        <LoginScreen setCurrentScreen={setCurrentScreen} />
+      ) : (
         <div>
           <h1>Hospital Management system</h1>
           <Management />
         </div>
-      );
-  }
+      )}
+    </UserContextProvider>
+  );
 }
 
 export default App;

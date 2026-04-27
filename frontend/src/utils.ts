@@ -74,3 +74,24 @@ export const loginUser = async ({
     success: false,
   };
 };
+
+export const getAppointments = async () => {
+  const res = await fetch(`${BACKEND_URL}/booking/appointments`, {
+    method: "GET",
+    headers: {
+      "Content-Type": "application/json",
+      Authorization: `Bearer ${localStorage.getItem("token")}`,
+    },
+  });
+  if (res.status === 200) {
+    const data = await res.json();
+    return {
+      success: true,
+      appointments: data.appointments,
+    };
+  }
+  return {
+    success: false,
+    appointments: [],
+  };
+};
