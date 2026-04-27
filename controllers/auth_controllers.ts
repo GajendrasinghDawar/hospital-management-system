@@ -84,6 +84,15 @@ export async function Login(req: Request, res: Response) {
   });
 }
 
+export async function getUsers(req: Request, res: Response) {
+  const db = await connectToDatabse();
+  const users = await db
+    .collection("users")
+    .find({}, { projection: { password: 0 } })
+    .toArray();
+  return res.status(200).json({ users });
+}
+
 export function me(req: Request, res: Response) {
   const user = (req as any).user;
 
@@ -97,4 +106,15 @@ export function me(req: Request, res: Response) {
     message: "here you are!",
     user,
   });
+}
+
+export async function getDoctors(req: Request, res: Response) {
+  const db = await connectToDatabse();
+  const doctors = await db
+    .collection("users")
+
+    .find({ type: "doctor" })
+    .project({ name: 1, email: 1 })
+    .toArray();
+  res.status(200).json({ doctors });
 }

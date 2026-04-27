@@ -96,6 +96,35 @@ export async function getAppointmentById(req: authRequest, res: Response) {
   res.status(200).json({ appointment });
 }
 
+export async function cancelAppointment(req: authRequest, res: Response) {
+  const { id } = req.params;
+  const user = req.user;
+
+  if (!user) {
+    return res.status(401).json({ message: "unauthorized !" });
+  }
+
+  if (!id || !ObjectId.isValid(id as string)) {
+    return res
+      .status(400)
+      .json({ message: "valid appointment id is required" });
+  }
+
+  const db = await connectToDatabse();
+  const result = await db.collection("appointments").deleteOne({
+    _id: new ObjectId(id as string),
+    clientId: user.id,
+  });
+
+  if (result.deletedCount === 0) {
+    return res.status(404).json({ message: "appointment not found" });
+  }
+
+  return res
+    .status(200)
+    .json({ message: "appointment cancelled successfully" });
+}
+
 export async function createAvailability(req: authRequest, res: Response) {
   const { date, time } = req.body;
   const user = req.user;

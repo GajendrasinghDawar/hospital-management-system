@@ -8,6 +8,8 @@ avaiable endpoints:
 /login
 /register
 /me
+/users
+
 
 /appointments
 /appointments/:id
