@@ -126,3 +126,26 @@ export const createAvailableSlot = async ({
     message: data?.message || "failed to create availability",
   };
 };
+
+export const getAvailableSlot = async () => {
+  const res = await fetch(`${BACKEND_URL}/booking/availability`, {
+    method: "GET",
+    headers: {
+      "Content-Type": "application/json",
+      Authorization: `Bearer ${localStorage.getItem("token")}`,
+    },
+  });
+
+  if (res.status === 200) {
+    const data = await res.json();
+    return {
+      success: true,
+      slots: data.availabilities,
+    };
+  }
+
+  return {
+    success: false,
+    slots: [],
+  };
+};

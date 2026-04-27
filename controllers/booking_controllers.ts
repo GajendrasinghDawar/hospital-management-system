@@ -148,21 +148,25 @@ export async function getAvailabilities(req: authRequest, res: Response) {
     .collection("availabilities")
     .aggregate([
       {
+        $addFields: {
+          doctorObjectId: { $toObjectId: "$doctorId" },
+        },
+      },
+      {
         $lookup: {
           from: "users",
-          localField: "doctorId",
+          localField: "doctorObjectId",
           foreignField: "_id",
           as: "doctor",
         },
       },
       { $unwind: "$doctor" },
-      { $match: { "doctor.type": "doctor" } },
       {
         $project: {
           _id: 1,
           doctorId: 1,
           date: 1,
-          slots: 1,
+          time: 1,
           doctorName: "$doctor.name",
         },
       },

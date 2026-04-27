@@ -2,6 +2,7 @@ import { use } from "react";
 import { UserContext } from "../providers/UserContext";
 import { CreateAvailablity } from "./CreateAvailability";
 import ClientAppointments from "./ClientAppointments";
+import { AvailableSlots } from "./AvailableSlots";
 
 export function Management() {
   const user = use(UserContext);
@@ -12,6 +13,7 @@ export function Management() {
         <>
           <h2>Welcome {user.email}</h2>
           <h3>Book an appointment</h3>
+          <AvailableSlots />
           <ClientAppointments />
           <div></div>
         </>
