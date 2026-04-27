@@ -1,6 +1,6 @@
 import type { Request, Response } from "express";
 import { connectToDatabse } from "../config/database.ts";
-import { authRequest } from "../middleware/auth_middleware.ts";
+import type { authRequest } from "../middleware/auth_middleware.ts";
 import { ObjectId } from "mongodb";
 
 export async function createAppointment(req: authRequest, res: Response) {
